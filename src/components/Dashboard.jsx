@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { fetchAlbums } from '../service/api';
 import AlbumRow from './AlbumRow';
 import { useAuth } from '../context/AuthContext';
+import Spinner from './Spinner';
+
 
 const Dashboard = () => {
   const [albums, setAlbums] = useState([]);
@@ -14,7 +16,13 @@ const Dashboard = () => {
       setLoading(true);
       try {
         const data = await fetchAlbums(page);
-        setAlbums((prevAlbums) => [...prevAlbums, ...data]);
+        // Evitar duplicados: solo agregar nuevos datos si no están ya en la lista
+        setAlbums((prevAlbums) => {
+          const newAlbums = data.filter(
+            (album) => !prevAlbums.some((prevAlbum) => prevAlbum.id === album.id)
+          );
+          return [...prevAlbums, ...newAlbums];
+        });
       } catch (error) {
         console.error(error);
       } finally {
@@ -51,7 +59,7 @@ const Dashboard = () => {
           ))}
         </tbody>
       </table>
-      {loading && <p className="mt-4">Cargando...</p>}
+      {loading && <Spinner />}
       <button
         onClick={handleLoadMore}
         className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
