@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Error from './Error';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -17,12 +18,18 @@ const Login = () => {
 
     // Simulación de autenticación
     setTimeout(() => {
-      if (username === 'admin' && password === '1234') {
-        login(); // Establecer autenticación
-        navigate('/dashboard'); // Redirigir al dashboard
-      } else {
+      try {
+        if (username === 'admin' && password === '1234') {
+        login();
+          navigate('/dashboard');
+          } else {
         setError('Credenciales incorrectas');
       }
+      } catch (error) {
+         setError('Error de conexión. Inténtalo de nuevo más tarde.');
+      }
+      
+      
       setLoading(false);
     }, 1000);
   };
@@ -34,6 +41,7 @@ const Login = () => {
         className="bg-white p-8 rounded-lg shadow-md"
       >
         <h2 className="text-2xl font-bold mb-4">Iniciar Sesión</h2>
+        {error && <Error message={error} />}
         <div className="mb-4">
           <label className="block text-gray-700">Usuario:</label>
           <input
@@ -54,7 +62,6 @@ const Login = () => {
             required
           />
         </div>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
         <button
           type="submit"
           disabled={loading}

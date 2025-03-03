@@ -3,17 +3,19 @@ import { fetchAlbums } from '../service/api';
 import AlbumRow from './AlbumRow';
 import { useAuth } from '../context/AuthContext';
 import Spinner from './Spinner';
-
+import Error from './Error';
 
 const Dashboard = () => {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const { logout } = useAuth();
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const getAlbums = async () => {
       setLoading(true);
+      setError('');
       try {
         const data = await fetchAlbums(page);
         // Evitar duplicados: solo agregar nuevos datos si no están ya en la lista
@@ -25,6 +27,7 @@ const Dashboard = () => {
         });
       } catch (error) {
         console.error(error);
+        setError('Error al cargar los álbumes. Inténtalo de nuevo más tarde.');
       } finally {
         setLoading(false);
       }
@@ -48,6 +51,7 @@ const Dashboard = () => {
         Cerrar sesión
       </button>
       </div>
+      {error && <Error message={error} />}
       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
