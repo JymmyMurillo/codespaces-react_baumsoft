@@ -1,70 +1,97 @@
-# GitHub Codespaces ♥️ React
+# Documentación del Proyecto
 
-Welcome to your shiny new Codespace running React! We've got everything fired up and running for you to explore React.
+## Descripción General
+Este proyecto es una aplicación web desarrollada con **ReactJS** y **Vite**, que incluye un sistema de autenticación y una interfaz para visualizar datos obtenidos de una API externa. Utiliza **React Router** para la navegación y **Tailwind CSS** para los estilos.
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+## Tecnologías Utilizadas
+### Dependencias principales:
+- **React** (`react`, `react-dom`) – Biblioteca principal para la interfaz.
+- **React Router DOM** (`react-router-dom`) – Manejo de rutas en la aplicación.
+- **npx** – Utilidad para ejecutar paquetes de npm.
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+### Dependencias de desarrollo:
+- **Vite** (`vite`, `@vitejs/plugin-react`) – Herramienta de construcción y desarrollo rápido.
+- **Tailwind CSS** (`tailwindcss`, `autoprefixer`, `postcss`) – Framework de estilos CSS.
 
-This project was bootstrapped for you with [Vite](https://vitejs.dev/).
+## Instalación y Ejecución
+Si deseas ejecutar el proyecto localmente, sigue estos pasos:
+```sh
+# Clonar el repositorio
+$ git clone https://github.com/JymmyMurillo/codespaces-react_baumsoft
 
-## Available Scripts
+# Navegar al directorio del proyecto
+$ cd nombre-del-proyecto
 
-In the project directory, you can run:
+# Instalar dependencias
+$ npm install
 
-### `npm start`
+# Ejecutar el servidor de desarrollo
+$ npm run start
+```
 
-We've already run this for you in the `Codespaces: server` terminal window below. If you need to stop the server for any reason you can just run `npm start` again to bring it back online.
+## Credenciales de Acceso
+Para iniciar sesión en la aplicación, utiliza las siguientes credenciales:
+- **Usuario:** `admin`
+- **Contraseña:** `1234`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000/](http://localhost:3000/) in the built-in Simple Browser (`Cmd/Ctrl + Shift + P > Simple Browser: Show`) to view your running application.
+## Consumo de API
+La aplicación obtiene datos desde la siguiente API externa:
+- **Endpoint:** `https://jsonplaceholder.typicode.com/albums`
+- **Uso:** Se consumen los datos de álbumes y se presentan en una tabla con paginación progresiva.
 
-The page will reload automatically when you make changes.\
-You may also see any lint errors in the console.
+## Estructura del Proyecto
+```
+src/
+│── App.jsx                # Componente principal de la aplicación
+│── App.css                # Estilos principales
+│── App.test.jsx           # Pruebas unitarias de la aplicación
+│── index.jsx              # Punto de entrada de la aplicación
+│── index.css              # Estilos globales
+│── reportWebVitals.js     # Métricas de rendimiento
+│── setupTests.js          # Configuración de pruebas
+│
+├── components/            # Componentes reutilizables
+│   ├── AlbumRow.jsx       # Componente para representar un álbum en la tabla
+│   ├── Dashboard.jsx      # Vista principal después de iniciar sesión
+│   ├── Error.jsx          # Indicador de error
+│   ├── Login.jsx          # Formulario de inicio de sesión
+│   ├── Spinner.jsx        # Indicador de carga
+│
+├── context/               # Contexto global de autenticación
+│   ├── AuthContext.jsx    # Proveedor y manejador de estado de autenticación
+│
+├── routes/                # Configuración de rutas de la aplicación
+│   ├── AppRouter.jsx      # Definición de rutas principales
+│   ├── PrivateRoute.jsx   # Control de acceso a rutas privadas
+│
+└── service/               # Servicios y consumo de APIs
+    ├── api.js             # Funciones para obtener datos de la API
+```
 
-### `npm test`
+## Descripción de la Solución
+### 1. Sistema de Autenticación
+- Se ha implementado un formulario de inicio de sesión con los siguientes campos:
+  - Usuario
+  - Contraseña
+  - Botón de "Ingresar"
+- Validaciones incluidas:
+  - Campos obligatorios.
+  - Verificación de credenciales (Usuario: `admin`, Contraseña: `1234`).
+  - Mensajes de error adecuados.
+  - Estado de "cargando" mientras se procesa la autenticación.
+- Al iniciar sesión correctamente, se redirige a la pantalla de visualización de datos.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Visualización de Datos
+- Se obtienen datos de `https://jsonplaceholder.typicode.com/albums`.
+- Se implementa una tabla para mostrar la información obtenida.
+- Se ha agregado paginación:
+  - Se muestran 10 registros iniciales.
+  - Un botón "Ver más" permite cargar los siguientes 10 registros.
+  - Los nuevos registros se agregan a la lista existente.
+- Se ha incluido un botón "Cerrar sesión" que regresa al usuario a la pantalla de inicio de sesión.
+- Se maneja un estado de "cargando" mientras se obtiene la información.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
+© 2025 - Proyecto de Evaluación Técnica Frontend con ReactJS
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Vite documentation](https://vitejs.dev/guide/).
-
-To learn Vitest, a Vite-native testing framework, go to [Vitest documentation](https://vitest.dev/guide/)
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://sambitsahoo.com/blog/vite-code-splitting-that-works.html](https://sambitsahoo.com/blog/vite-code-splitting-that-works.html)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf)
-
-### Advanced Configuration
-
-This section has moved here: [https://vitejs.dev/guide/build.html#advanced-base-options](https://vitejs.dev/guide/build.html#advanced-base-options)
-
-### Deployment
-
-This section has moved here: [https://vitejs.dev/guide/build.html](https://vitejs.dev/guide/build.html)
-
-### Troubleshooting
-
-This section has moved here: [https://vitejs.dev/guide/troubleshooting.html](https://vitejs.dev/guide/troubleshooting.html)
