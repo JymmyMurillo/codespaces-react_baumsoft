@@ -39,6 +39,7 @@ const Dashboard = () => {
 
   return (
     <div className="p-4">
+      <div className="flex justify-between items-center mb-4">
       <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
       <button
         onClick={logout}
@@ -46,6 +47,7 @@ const Dashboard = () => {
       >
         Cerrar sesión
       </button>
+      </div>
       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
